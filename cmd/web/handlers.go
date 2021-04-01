@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/cristiano-pacheco/snippetbox/pkg/models"
+	"github.com/gorilla/mux"
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
@@ -25,9 +26,8 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
-	// Pat doesn't strip the colon from the named capture key, so we need to
-	// get the value of ":id" from the query string instead of "id".
-	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
