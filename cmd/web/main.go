@@ -16,7 +16,10 @@ import (
 	"github.com/golangcollege/sessions"
 )
 
-// Add a new session field to the application struct.
+type contextKey string
+
+const contextKeyIsAuthenticated = contextKey("isAuthenticated")
+
 type application struct {
 	errorLog      *log.Logger
 	infoLog       *log.Logger
